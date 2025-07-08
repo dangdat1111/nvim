@@ -1,11 +1,41 @@
 vim.wo.number = true -- Make line numbers default (default: false)
 vim.o.relativenumber = true -- Set relative numbered lines (default: false)
 
--- Set custom colors for line numbers
 vim.api.nvim_set_hl(0, "LineNr", { fg = "#888888" })
 vim.api.nvim_set_hl(0, "CursorLineNr", { fg = "#00FF00", bold = true })
 vim.api.nvim_set_hl(0, "SignColumn", { bg = "#282828" })
 
+vim.opt.guicursor = ""
+
+vim.opt.nu = true
+vim.opt.relativenumber = true
+
+vim.opt.tabstop = 4
+vim.opt.softtabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.expandtab = true
+
+vim.opt.smartindent = true
+
+vim.opt.wrap = false
+
+vim.opt.swapfile = false
+vim.opt.backup = false
+vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
+vim.opt.undofile = true
+
+vim.opt.hlsearch = false
+vim.opt.incsearch = true
+
+vim.opt.termguicolors = true
+
+vim.opt.scrolloff = 8
+vim.opt.signcolumn = "yes"
+vim.opt.isfname:append("@-@")
+
+vim.opt.updatetime = 50
+
+vim.opt.colorcolumn = "80"
 
 
 

@@ -9,6 +9,7 @@ local root_files = {
   '.git',
 }
 
+
 return {
     "neovim/nvim-lspconfig",
     dependencies = {
