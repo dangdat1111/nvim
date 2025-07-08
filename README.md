@@ -1,7 +1,5 @@
 # Neovim Keymap Configuration
-
-This document summarizes all keymaps defined in ThePrimeagen's Neovim configuration (`https://github.com/ThePrimeagen/init.lua`). The keymaps are organized by mode and associated plugin/functionality. The leader key is set to `<Space>`.
-
+Hello everyone, Iam Dat Dang, this is my Neovim configuration, featuring a range of useful plugins to boost coding speed and productivity. I’ve also drawn inspiration from many sources with the goal of improving myself further.
 ## Keymap Overview
 
 | Mode   | Keymap            | Command/Plugin                              | Description                                                                 |
@@ -101,6 +99,6 @@ Keymaps related to the `undotree` plugin defined in `undotree.lua`.
 - **Modes**:
   - **N**: Normal mode in Neovim.
   - **V**: Visual (selection) mode in Neovim.
-- **Sources**: Keymaps are extracted from `remap.lua`, `lsp.lua`, `telescope.lua`, `harpoon.lua`, `fugitive.lua`, and `undotree.lua` in the `lua/theprimeagen/lazy/` directory.
+- **Sources**: Keymaps are extracted from `remap.lua`, `lsp.lua`, `telescope.lua`, `harpoon.lua`, `fugitive.lua`, and `undotree.lua` in the `lua/theprimeoptimus/plugins/` directory.
 - This configuration is optimized for a fast and efficient development workflow, leveraging plugins like Telescope, LSP, Harpoon, and Fugitive.
 
