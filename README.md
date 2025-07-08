@@ -11,13 +11,13 @@ This document summarizes all keymaps defined in ThePrimeagen's Neovim configurat
 | N | `<C-j>`           | `<C-w>j`                                    | Move cursor to the window below.                                            |
 | N | `<C-k>`           | `<C-w>k`                                    | Move cursor to the window above.                                            |
 | N | `<C-l>`           | `<C-w>l`                                    | Move cursor to the window on the right.                                     |
-| Visual | `J`               | `:m '>+1<CR>gv=gv`                          | Move selected line(s) down and maintain selection.                           |
-| Visual | `K`               | `:m '<-2<CR>gv=gv`                          | Move selected line(s) up and maintain selection.                             |
+| V | `J`               | `:m '>+1<CR>gv=gv`                          | Move selected line(s) down and maintain selection.                           |
+| V | `K`               | `:m '<-2<CR>gv=gv`                          | Move selected line(s) up and maintain selection.                             |
 | N | `<leader>y`       | `"+y`                                       | Copy to system clipboard.                                                   |
-| Visual | `<leader>y`       | `"+y`                                       | Copy selected text to system clipboard.                                     |
+| V | `<leader>y`       | `"+y`                                       | Copy selected text to system clipboard.                                     |
 | N | `<leader>Y`       | `"+Y`                                       | Copy entire line to system clipboard.                                       |
 | N | `<leader>d`       | `"_d`                                       | Delete without saving to register (clean delete).                           |
-| Visual | `<leader>d`       | `"_d`                                       | Delete selected text without saving to register (clean delete).             |
+| V | `<leader>d`       | `"_d`                                       | Delete selected text without saving to register (clean delete).             |
 | N | `<C-c>`           | `<cmd> %y+ <CR>`                            | Copy entire file content to system clipboard.                               |
 | N | `Q`               | `<nop>`                                     | Disable `Q` key to prevent entering Ex mode.                                |
 | N | `<C-f>`           | `<cmd>silent !tmux neww tmux-sessionizer<CR>` | Open a new tmux session using `tmux-sessionizer`.                           |
@@ -100,7 +100,7 @@ Keymaps related to the `undotree` plugin defined in `undotree.lua`.
 - **Leader Key**: Set to `<Space>` in the configuration.
 - **Modes**:
   - **N**: Normal mode in Neovim.
-  - **Visual**: Visual (selection) mode in Neovim.
+  - **V**: Visual (selection) mode in Neovim.
 - **Sources**: Keymaps are extracted from `remap.lua`, `lsp.lua`, `telescope.lua`, `harpoon.lua`, `fugitive.lua`, and `undotree.lua` in the `lua/theprimeagen/lazy/` directory.
 - This configuration is optimized for a fast and efficient development workflow, leveraging plugins like Telescope, LSP, Harpoon, and Fugitive.
 
