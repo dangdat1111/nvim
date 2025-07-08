@@ -1,5 +1,5 @@
 # Neovim Keymap Configuration
-Hello everyone, Iam Dat Dang, this is my Neovim configuration, featuring a range of useful plugins to boost coding speed and productivity. I’ve also drawn inspiration from many sources with the goal of improving myself further.
+Hello everyone, Iam Dat Dang, this is my Neovim configuration, featuring the range of useful plugins to boost coding speed and productivity. I’ve also drawn inspiration from many sources with the goal of improving myself further.
 ## Keymap Overview
 
 | Mode   | Keymap            | Command/Plugin                              | Description                                                                 |
