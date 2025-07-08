@@ -1,80 +1,106 @@
-# Cấu hình Neovim của tôi (`init.lua`)
+# Neovim Keymap Configuration
 
-Chào mừng bạn đến với kho lưu trữ cấu hình Neovim của tôi. Tệp `init.lua` này được thiết kế để tạo ra một môi trường lập trình hiện đại, hiệu quả và đẹp mắt.
+This document summarizes all keymaps defined in ThePrimeagen's Neovim configuration (`https://github.com/ThePrimeagen/init.lua`). The keymaps are organized by mode and associated plugin/functionality. The leader key is set to `<Space>`.
 
-## ✨ Tính năng nổi bật
+## Keymap Overview
 
-- **Tổ chức thông minh**: Sử dụng `augroup` để quản lý các lệnh tự động, tránh xung đột và trùng lặp khi tải lại cấu hình.
-- **Tăng cường hiệu suất**:
-  - Tự động làm nổi bật văn bản vừa được "yank" (sao chép) để xác nhận trực quan.
-  - Tự động dọn dẹp các khoảng trắng thừa ở cuối dòng trước khi lưu tệp.
-- **Giao diện người dùng động**:
-  - Tự động chuyển đổi bảng màu (colorscheme) dựa trên loại tệp đang chỉnh sửa.
-- **Tích hợp LSP mạnh mẽ**:
-  - Tự động thiết lập các phím tắt quan trọng cho LSP (`go to definition`, `hover`, `rename`, v.v.) chỉ khi LSP được kích hoạt, giúp tối ưu hiệu năng.
-- **Tùy chỉnh có sẵn**:
-  - Cải thiện hành vi của trình duyệt tệp `netrw`.
-  - Thêm hỗ trợ nhận dạng cho các tệp `.templ`.
+| Mode   | Keymap            | Command/Plugin                              | Description                                                                 |
+|--------|-------------------|---------------------------------------------|-----------------------------------------------------------------------------|
+| Normal | `<leader>pv`      | `vim.cmd.Ex`                                | Open Netrw (Neovim's file explorer).                                        |
+| Normal | `<C-h>`           | `<C-w>h`                                    | Move cursor to the window on the left.                                      |
+| Normal | `<C-j>`           | `<C-w>j`                                    | Move cursor to the window below.                                            |
+| Normal | `<C-k>`           | `<C-w>k`                                    | Move cursor to the window above.                                            |
+| Normal | `<C-l>`           | `<C-w>l`                                    | Move cursor to the window on the right.                                     |
+| Visual | `J`               | `:m '>+1<CR>gv=gv`                          | Move selected line(s) down and maintain selection.                           |
+| Visual | `K`               | `:m '<-2<CR>gv=gv`                          | Move selected line(s) up and maintain selection.                             |
+| Normal | `<leader>y`       | `"+y`                                       | Copy to system clipboard.                                                   |
+| Visual | `<leader>y`       | `"+y`                                       | Copy selected text to system clipboard.                                     |
+| Normal | `<leader>Y`       | `"+Y`                                       | Copy entire line to system clipboard.                                       |
+| Normal | `<leader>d`       | `"_d`                                       | Delete without saving to register (clean delete).                           |
+| Visual | `<leader>d`       | `"_d`                                       | Delete selected text without saving to register (clean delete).             |
+| Normal | `<C-c>`           | `<cmd> %y+ <CR>`                            | Copy entire file content to system clipboard.                               |
+| Normal | `Q`               | `<nop>`                                     | Disable `Q` key to prevent entering Ex mode.                                |
+| Normal | `<C-f>`           | `<cmd>silent !tmux neww tmux-sessionizer<CR>` | Open a new tmux session using `tmux-sessionizer`.                           |
+| Normal | `<leader>f`       | `vim.lsp.buf.format`                        | Format code using LSP.                                                      |
+| Normal | `<C-k>`           | `<cmd>cnext<CR>zz`                          | Go to next quickfix list item and center the screen.                        |
+| Normal | `<C-j>`           | `<cmd>cprev<CR>zz`                          | Go to previous quickfix list item and center the screen.                    |
+| Normal | `<leader>k`       | `<cmd>lnext<CR>zz`                          | Go to next location list item and center the screen.                        |
+| Normal | `<leader>j`       | `<cmd>lprev<CR>zz`                          | Go to previous location list item and center the screen.                    |
+| Normal | `<leader>s`       | `:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>` | Replace word under cursor globally (supports entering replacement).         |
+| Normal | `<leader>x`       | `<cmd>!chmod +x %<CR>`                      | Make current file executable.                                               |
+| Normal | `<leader><leader>`| `<cmd>so<CR>`                               | Source the current Neovim configuration file.                               |
+| Normal | `<leader>mr`      | `TSJSX`                                     | Run `TSJSX` (related to Treesitter or custom plugin).                       |
 
-## 📋 Yêu cầu
+## LSP Keymaps
 
-- **Neovim**: Phiên bản `0.5` trở lên.
-- **Plugin**:
-  - [plenary.nvim](https://github.com/nvim-lua/plenary.nvim): Dùng cho hàm tải lại module.
-  - `tokyonight.nvim`: Bảng màu cho tệp Zig.
-  - `rose-pine`: Bảng màu mặc định.
-- **Máy chủ Ngôn ngữ (LSP)**: Bạn cần cài đặt các LSP server tương ứng với ngôn ngữ bạn làm việc (ví dụ: `lua-language-server`, `gopls`, `rust-analyzer`).
+Keymaps related to the Language Server Protocol (LSP) defined in `lsp.lua`.
 
-## 🚀 Cài đặt
+| Mode   | Keymap            | Command/Plugin                              | Description                                                                 |
+|--------|-------------------|---------------------------------------------|-----------------------------------------------------------------------------|
+| Normal | `gd`              | `vim.lsp.buf.definition`                    | Jump to the definition of the symbol under the cursor.                      |
+| Normal | `gD`              | `vim.lsp.buf.declaration`                   | Jump to the declaration of the symbol under the cursor.                     |
+| Normal | `K`               | `vim.lsp.buf.hover`                         | Show hover information for the symbol under the cursor.                     |
+| Normal | `gi`              | `vim.lsp.buf.implementation`                | Jump to the implementation of the symbol under the cursor.                  |
+| Normal | `<C-k>`           | `vim.lsp.buf.signature_help`                | Show signature help for the function under the cursor.                      |
+| Normal | `<leader>rn`      | `vim.lsp.buf.rename`                        | Rename the symbol under the cursor.                                         |
+| Normal | `gr`              | `vim.lsp.buf.references`                    | Find all references to the symbol under the cursor.                         |
+| Normal | `<leader>ca`      | `vim.lsp.buf.code_action`                   | Open code action menu for the symbol under the cursor.                      |
+| Normal | `[d`              | `vim.diagnostic.goto_prev`                  | Jump to the previous diagnostic (error/warning).                            |
+| Normal | `]d`              | `vim.diagnostic.goto_next`                  | Jump to the next diagnostic (error/warning).                                |
+| Normal | `<leader>e`       | `vim.diagnostic.open_float`                 | Show diagnostic details in a floating window.                               |
+| Normal | `<leader>q`       | `vim.diagnostic.setloclist`                 | Add diagnostics to the location list.                                       |
 
-1.  **Đặt tệp cấu hình**:
-    Sao chép nội dung của `init.lua` và đặt nó vào đường dẫn cấu hình Neovim của bạn:
-    -   **Linux/macOS**: `~/.config/nvim/init.lua`
-    -   **Windows**: `~/AppData/Local/nvim/init.lua`
+## Telescope Keymaps
 
-2.  **Cài đặt Plugin**:
-    Bạn cần sử dụng một trình quản lý plugin như [lazy.nvim](https://github.com/folke/lazy.nvim) hoặc [packer.nvim](https://github.com/wbthomason/packer.nvim) để cài đặt các plugin được liệt kê trong phần **Yêu cầu**.
+Keymaps related to the `telescope.nvim` plugin defined in `telescope.lua`.
 
-## ⚙️ Giải thích Cấu hình
+| Mode   | Keymap            | Command/Plugin                              | Description                                                                 |
+|--------|-------------------|---------------------------------------------|-----------------------------------------------------------------------------|
+| Normal | `<leader>ps`      | `Telescope grep_string`                     | Search for the word under the cursor in the project.                        |
+| Normal | `<C-p>`           | `Telescope git_files`                       | Search for files in the Git repository.                                     |
+| Normal | `<leader>pf`      | `Telescope find_files`                      | Search for all files in the working directory.                              |
+| Normal | `<leader>sh`      | `Telescope help_tags`                       | Search through Neovim help tags.                                            |
+| Normal | `<leader>sw`      | `Telescope grep_string`                     | Search for a string in the entire project (same as `<leader>ps`).           |
+| Normal | `<leader>sg`      | `Telescope live_grep`                       | Live grep search in the entire project.                                     |
+| Normal | `<leader>sd`      | `Telescope diagnostics`                     | Show LSP diagnostics (errors/warnings).                                     |
+| Normal | `<leader>?`       | `Telescope oldfiles`                        | Show recently opened files.                                                 |
+| Normal | `<leader><space>` | `Telescope buffers`                         | Show open buffers.                                                          |
+| Normal | `<leader>/`       | `Telescope current_buffer_fuzzy_find`       | Fuzzy find in the current buffer.                                           |
 
-### Tổ chức & Tiện ích
-- **`augroup`**: Các lệnh tự động (`autocmd`) được nhóm vào `ThePrimeagenGroup` và `HighlightYank` để dễ dàng quản lý và xóa khi cần, đảm bảo cấu hình luôn sạch.
-- **Hàm `R(name)`**: Một hàm tiện ích (`require("plenary.reload")`) giúp tải lại các tệp cấu hình Lua mà không cần khởi động lại Neovim.
+## Harpoon Keymaps
 
-### Cải thiện Trải nghiệm Soạn thảo
-- **Highlight on Yank**: Sử dụng sự kiện `TextYankPost` để tô sáng nhanh vùng văn bản vừa được sao chép, giúp xác nhận hành động một cách trực quan.
-- **Trim Whitespace**: Sử dụng sự kiện `BufWritePre` để tự động chạy lệnh `%s/\s\+$//e`, xóa các khoảng trắng thừa ở cuối dòng trước khi lưu.
+Keymaps related to the `harpoon` plugin defined in `harpoon.lua`.
 
-### Giao diện Động
-- Một `autocmd` trên sự kiện `BufEnter` sẽ kiểm tra kiểu tệp (`filetype`):
-  - Nếu là `"zig"`, đổi bảng màu thành `tokyonight-night`.
-  - Ngược lại, sử dụng `rose-pine-moon`.
+| Mode   | Keymap            | Command/Plugin                              | Description                                                                 |
+|--------|-------------------|---------------------------------------------|-----------------------------------------------------------------------------|
+| Normal | `<leader>a`       | `harpoon:list():append()`                   | Add the current file to Harpoon's list.                                     |
+| Normal | `<C-e>`           | `harpoon.ui:toggle_quick_menu()`            | Toggle Harpoon's quick menu.                                                |
+| Normal | `<C-1>`           | `harpoon:list():select(1)`                  | Switch to the 1st file in Harpoon's list.                                   |
+| Normal | `<C-2>`           | `harpoon:list():select(2)`                  | Switch to the 2nd file in Harpoon's list.                                   |
+| Normal | `<C-3>`           | `harpoon:list():select(3)`                  | Switch to the 3rd file in Harpoon's list.                                   |
+| Normal | `<C-4>`           | `harpoon:list():select(4)`                  | Switch to the 4th file in Harpoon's list.                                   |
 
-### Tích hợp LSP
-- **`LspAttach`**: Đây là sự kiện quan trọng nhất, nó chỉ kích hoạt các phím tắt LSP khi một máy chủ ngôn ngữ đã sẵn sàng hoạt động trên buffer hiện tại. Điều này giúp tối ưu và tránh lỗi khi mở các tệp không có LSP.
+## Fugitive Keymaps
 
-### Tùy chỉnh `netrw`
-- Các thiết lập `vim.g.netrw_*` được dùng để tùy chỉnh trình duyệt tệp mặc định:
-  - Mở tệp trong cửa sổ hiện tại (`netrw_browse_split = 0`).
-  - Ẩn banner không cần thiết (`netrw_banner = 0`).
-  - Đặt kích thước cửa sổ là 25% (`netrw_winsize = 25`).
+Keymaps related to the `vim-fugitive` plugin defined in `fugitive.lua`.
 
-## ⌨️ Các phím tắt chính
+| Mode   | Keymap            | Command/Plugin                              | Description                                                                 |
+|--------|-------------------|---------------------------------------------|-----------------------------------------------------------------------------|
+| Normal | `<leader>gs`      | `vim.cmd.Git`                               | Open Fugitive's Git interface.                                              |
 
-Các phím tắt sau đây sẽ tự động được kích hoạt trong các buffer có LSP.
+## Undotree Keymaps
 
-| Chế độ | Phím tắt      | Chức năng                               |
-| :----- | :------------ | :--------------------------------------- |
-| Normal | `gd`          | Đi tới Định nghĩa (Go to Definition)     |
-| Normal | `K`           | Hiển thị thông tin (Hover)               |
-| Normal | `<leader>vws` | Tìm kiếm Biểu tượng trong Workspace      |
-| Normal | `<leader>vd`  | Mở cửa sổ chẩn đoán (Lỗi/Cảnh báo)       |
-| Normal | `<leader>vca` | Hiển thị Hành động Code (Code Action)    |
-| Normal | `<leader>vrr` | Xem các Tham chiếu (References)          |
-| Normal | `<leader>vrn` | Đổi tên Biểu tượng (Rename)              |
-| Normal | `[d`          | Đi tới chẩn đoán tiếp theo               |
-| Normal | `]d`          | Đi tới chẩn đoán trước đó                |
-| Insert | `<C-h>`       | Gợi ý tham số của hàm (Signature Help)   |
+Keymaps related to the `undotree` plugin defined in `undotree.lua`.
 
----
-_README này được tạo để giải thích tệp `init.lua`._
+| Mode   | Keymap            | Command/Plugin                              | Description                                                                 |
+|--------|-------------------|---------------------------------------------|-----------------------------------------------------------------------------|
+| Normal | `<leader>u`       | `vim.cmd.UndotreeToggle`                    | Toggle the Undotree window (shows edit history).                             |
+
+## Notes
+- **Leader Key**: Set to `<Space>` in the configuration.
+- **Modes**:
+  - **Normal**: Normal mode in Neovim.
+  - **Visual**: Visual (selection) mode in Neovim.
+- **Sources**: Keymaps are extracted from `remap.lua`, `lsp.lua`, `telescope.lua`, `harpoon.lua`, `fugitive.lua`, and `undotree.lua` in the `lua/theprimeagen/lazy/` directory.
+- This configuration is optimized for a fast and efficient development workflow, leveraging plugins like Telescope, LSP, Harpoon, and Fugitive.
+

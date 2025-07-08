@@ -1,5 +1,5 @@
-vim.wo.number = true -- Make line numbers default (default: false)
-vim.o.relativenumber = true -- Set relative numbered lines (default: false)
+vim.wo.number = true
+vim.o.relativenumber = true
 
 vim.api.nvim_set_hl(0, "LineNr", { fg = "#888888" })
 vim.api.nvim_set_hl(0, "CursorLineNr", { fg = "#00FF00", bold = true })
@@ -36,11 +36,6 @@ vim.opt.isfname:append("@-@")
 vim.opt.updatetime = 50
 
 vim.opt.colorcolumn = "80"
-
-
-
-
-
 
 
 
