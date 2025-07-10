@@ -18,7 +18,7 @@ return {
         "williamboman/mason-lspconfig.nvim",
         "hrsh7th/cmp-nvim-lsp",
         "hrsh7th/cmp-buffer",
-	"github/copilot.vim",
+        "github/copilot.vim",
         "hrsh7th/cmp-path",
         "hrsh7th/cmp-cmdline",
         "hrsh7th/nvim-cmp",
@@ -47,7 +47,7 @@ return {
                 "lua_ls",
                 "rust_analyzer",
                 "gopls",
-		"pyright",
+                "pyright",
             },
             handlers = {
                 function(server_name) -- default handler (optional)
@@ -120,6 +120,13 @@ return {
         })
 
         vim.diagnostic.config({
+            virtual_text = {
+                true,
+            },
+            signs = true, -- Show signs in the sign column
+            underline = true, -- Underline the diagnostic range
+            update_in_insert = true, -- Update diagnostics even in insert mode (this was commented out in your config)
+            severity_sort = true,
             -- update_in_insert = true,
             float = {
                 focusable = false,
@@ -132,5 +139,29 @@ return {
         })
     end
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
