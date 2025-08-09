@@ -15,6 +15,7 @@ vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 vim.keymap.set("n", "=ap", "ma=ap'a")
 vim.keymap.set("n", "<leader>zig", "<cmd>LspRestart<cr>")
+vim.keymap.set('n', '<M-z>', ':set wrap!<CR>', { noremap = true, silent = true })
 
 --vim.keymap.set("n", "<leader>vwm", function()
 --    require("vim-with-me").StartVimWithMe()
@@ -85,6 +86,10 @@ end)
 --vim.keymap.set("n", "<leader><leader>", function()
 --    vim.cmd("so")
 --end)
+
+
+
+
 
 
 
