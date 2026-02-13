@@ -18,6 +18,7 @@ vim.opt.rtp:prepend(lazypath)
 -- Setup lazy.nvim
 require("lazy").setup({
 	spec = "theprimeoptimus.plugins" ,
+    rocks = {enabled = false, hererocks = false},
 	change_detection = { notify = false },
 })
 

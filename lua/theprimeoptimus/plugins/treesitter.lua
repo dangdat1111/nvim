@@ -3,18 +3,20 @@ return {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
     config = function()
-        require("nvim-treesitter.configs").setup({
-            -- A list of parser names, or "all"
+       local status, configs = pcall(require, "nvim-treesitter.configs")
+       if not status then
+           return
+        end
+        configs.setup({
             ensure_installed = {
-                "vimdoc", "javascript", "typescript", "c", "lua", "rust",
-                "jsdoc", "bash", "go","python",
-            },
+                    "vimdoc", "javascript", "typescript", "c", "lua", "rust",
+                    "jsdoc", "bash", "go", "python", "vim", "markdown", "markdown_inline"
+                },
 
-            -- Install parsers synchronously (only applied to `ensure_installed`)
+                -- Cài đặt đồng bộ (false là tốt nhất để không bị treo nvim)
             sync_install = false,
 
-            -- Automatically install missing parsers when entering buffer
-            -- Recommendation: set to false if you don"t have `tree-sitter` CLI installed locally
+                -- Tự động cài đặt khi mở file chưa có parser
             auto_install = true,
 
             indent = {
