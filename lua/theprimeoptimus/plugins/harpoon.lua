@@ -14,22 +14,22 @@ return {
 			    ui.toggle_quick_menu()
 			end)
 
-            vim.keymap.set("n", "<C-h>", function()
+            vim.keymap.set("n", "<C-1>", function()
                 print("Navigating to Harpoon file 1")
                 ui.nav_file(1)
             end, { desc = "Harpoon: Navigate to file 1" })
 
-            vim.keymap.set("n", "<C-t>", function()
+            vim.keymap.set("n", "<C-2>", function()
                 print("Navigating to Harpoon file 2")
                 ui.nav_file(2)
             end, { desc = "Harpoon: Navigate to file 2" })
 
-            vim.keymap.set("n", "<C-n>", function()
+            vim.keymap.set("n", "<C-3>", function()
                 print("Navigating to Harpoon file 3")
                 ui.nav_file(3)
             end, { desc = "Harpoon: Navigate to file 3" })
 
-            vim.keymap.set("n", "<C-s>", function()
+            vim.keymap.set("n", "<C-4>", function()
                 print("Navigating to Harpoon file 4")
                 ui.nav_file(4)
             end, { desc = "Harpoon: Navigate to file 4" })
