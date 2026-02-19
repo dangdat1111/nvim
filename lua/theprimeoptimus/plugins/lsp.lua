@@ -45,10 +45,12 @@ return {
         require("mason-lspconfig").setup({
             ensure_installed = {
                 "ts_ls",
+                "vtsls",
+                "eslint",
                 "lua_ls",
                 "rust_analyzer",
-                "gopls",
-                "tailwindcss"
+                "tailwindcss",
+                --"gopls",
             },
             handlers = {
                 function(server_name) -- default handler (optional)
