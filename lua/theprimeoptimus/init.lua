@@ -1,7 +1,8 @@
 require("theprimeoptimus.keymaps")
 require('theprimeoptimus.set')
 require("theprimeoptimus.lazy_init")
-
+vim.opt.termguicolors = true
+vim.opt.clipboard = "unnamedplus"
 local augroup = vim.api.nvim_create_augroup
 local ThePrimeagenGroup = augroup('ThePrimeagen', {})
 
