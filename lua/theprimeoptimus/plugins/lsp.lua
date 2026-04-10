@@ -93,6 +93,15 @@ return {
                         }
                     }
                 end,
+                ["gopls"] = function()
+                    local lspconfig = require("lspconfig")
+                    lspconfig.gopls.setup({
+                        capabilities = capabilities,
+                        on_attach = function(client)
+                            client.server_capabilities.semanticTokensProvider = nil
+                        end,
+                    })
+                end,
             }
         })
 
