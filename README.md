@@ -1,5 +1,34 @@
 # Neovim Keymap Configuration
 Hello everyone, Iam Dat Dang, this is my Neovim configuration, featuring the range of useful plugins to boost coding speed and productivity. I’ve also drawn inspiration from many sources with the goal of improving myself further.
+
+## Setup
+
+Requirements:
+
+- Neovim 0.10+.
+- tmux 3.2+.
+- git, a C compiler, `ripgrep`, and a Nerd Font are recommended.
+- Optional formatters/language tools: `stylua`, `gofmt`, Go, Rust, Node.js/npm, Zig.
+
+Install this config from the repo root:
+
+```sh
+./setup.sh
+```
+
+The setup script links this repo to `~/.config/nvim`, links `.tmux.conf` to `~/.tmux.conf`, installs TPM for tmux plugins, and syncs Neovim plugins when `nvim` is available. It refuses to overwrite existing config paths.
+
+Manual setup:
+
+```sh
+ln -s "$PWD" ~/.config/nvim
+ln -s "$PWD/.tmux.conf" ~/.tmux.conf
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+nvim
+```
+
+Inside tmux, press prefix + `I` to install tmux plugins. Prefix is `Ctrl-a`.
+
 ## Keymap Overview
 
 | Mode   | Keymap            | Command/Plugin                              | Description                                                                 |
@@ -101,4 +130,3 @@ Keymaps related to the `undotree` plugin defined in `undotree.lua`.
   - **V**: Visual (selection) mode in Neovim.
 - **Sources**: Keymaps are extracted from `remap.lua`, `lsp.lua`, `telescope.lua`, `harpoon.lua`, `fugitive.lua`, and `undotree.lua` in the `lua/theprimeoptimus/plugins/` directory.
 - This configuration is optimized for a fast and efficient development workflow, leveraging plugins like Telescope, LSP, Harpoon, and Fugitive.
-

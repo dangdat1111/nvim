@@ -37,12 +37,27 @@ vim.keymap.set({ "n", "v" }, "<leader>d", "\"_d")
 vim.keymap.set("i", "<C-c>", "<Esc>")
 
 vim.keymap.set("n", "Q", "<nop>")
-vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
-vim.keymap.set("n", "<M-h>", "<cmd>silent !tmux neww tmux-sessionizer -s 0<CR>")
-vim.keymap.set("n", "<M-t>", "<cmd>silent !tmux neww tmux-sessionizer -s 1<CR>")
-vim.keymap.set("n", "<M-n>", "<cmd>silent !tmux neww tmux-sessionizer -s 2<CR>")
-vim.keymap.set("n", "<M-s>", "<cmd>silent !tmux neww tmux-sessionizer -s 3<CR>")
-vim.keymap.set("n", "<M-H>", "<cmd>silent !tmux-sessionizer -s 0 --vsplit<CR>")
+
+local function tmux_sessionizer(args)
+    if vim.fn.executable("tmux-sessionizer") == 0 then
+        vim.notify("Missing executable: tmux-sessionizer", vim.log.levels.WARN)
+        return
+    end
+
+    if vim.env.TMUX == nil then
+        vim.notify("tmux-sessionizer keymaps need to run inside tmux", vim.log.levels.WARN)
+        return
+    end
+
+    vim.cmd("silent !tmux neww tmux-sessionizer " .. (args or ""))
+end
+
+vim.keymap.set("n", "<C-f>", function() tmux_sessionizer() end)
+vim.keymap.set("n", "<M-h>", function() tmux_sessionizer("-s 0") end)
+vim.keymap.set("n", "<M-t>", function() tmux_sessionizer("-s 1") end)
+vim.keymap.set("n", "<M-n>", function() tmux_sessionizer("-s 2") end)
+vim.keymap.set("n", "<M-s>", function() tmux_sessionizer("-s 3") end)
+vim.keymap.set("n", "<M-H>", function() tmux_sessionizer("-s 0 --vsplit") end)
 vim.keymap.set("n", "<leader>f", function()
     require("conform").format({ bufnr = 0 })
 end)
@@ -86,7 +101,6 @@ end)
 --vim.keymap.set("n", "<leader><leader>", function()
 --    vim.cmd("so")
 --end)
-
 
 
 
