@@ -1,7 +1,11 @@
 return {
     "nvim-telescope/telescope.nvim",
 
-    tag = "0.1.5",
+    branch = "master",
+
+    build = function()
+        require("theprimeoptimus.compat").patch_telescope()
+    end,
 
     dependencies = {
         "nvim-lua/plenary.nvim"
