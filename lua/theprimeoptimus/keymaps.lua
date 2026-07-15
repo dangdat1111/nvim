@@ -38,7 +38,9 @@ vim.keymap.set("i", "<C-c>", "<Esc>")
 
 vim.keymap.set("n", "Q", "<nop>")
 
-local function tmux_sessionizer(args)
+local function tmux_sessionizer(args, opts)
+    opts = opts or {}
+
     if vim.fn.executable("tmux-sessionizer") == 0 then
         vim.notify("Missing executable: tmux-sessionizer", vim.log.levels.WARN)
         return
@@ -49,7 +51,11 @@ local function tmux_sessionizer(args)
         return
     end
 
-    vim.cmd("silent !tmux neww tmux-sessionizer " .. (args or ""))
+    -- in_place: --vsplit/--hsplit chia pane ngay tại window đang ngồi, nên phải
+    -- gọi thẳng. Bọc trong `tmux neww` thì nó chia pane của window tạm rồi bỏ
+    -- window đó lại đấy, còn window của mình thì không hề tách.
+    local prefix = opts.in_place and "silent !tmux-sessionizer " or "silent !tmux neww tmux-sessionizer "
+    vim.cmd(prefix .. (args or ""))
 end
 
 vim.keymap.set("n", "<C-f>", function() tmux_sessionizer() end)
@@ -57,7 +63,7 @@ vim.keymap.set("n", "<M-h>", function() tmux_sessionizer("-s 0") end)
 vim.keymap.set("n", "<M-t>", function() tmux_sessionizer("-s 1") end)
 vim.keymap.set("n", "<M-n>", function() tmux_sessionizer("-s 2") end)
 vim.keymap.set("n", "<M-s>", function() tmux_sessionizer("-s 3") end)
-vim.keymap.set("n", "<M-H>", function() tmux_sessionizer("-s 0 --vsplit") end)
+vim.keymap.set("n", "<M-H>", function() tmux_sessionizer("-s 0 --vsplit", { in_place = true }) end)
 vim.keymap.set("n", "<leader>f", function()
     require("conform").format({ bufnr = 0 })
 end)
