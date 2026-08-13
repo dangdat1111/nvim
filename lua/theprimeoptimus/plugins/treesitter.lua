@@ -16,6 +16,7 @@ return {
                     "rust",
                     "zig",
                     "python",
+                    "sql",
                     "bash",
                     "json", "yaml", "toml",
                     "css",
