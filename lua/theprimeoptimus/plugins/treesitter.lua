@@ -1,10 +1,9 @@
 return {
     {
         "nvim-treesitter/nvim-treesitter",
-        branch = "master",
+        branch = "main",
         build = function()
             vim.cmd(":TSUpdate")
-            require("theprimeoptimus.compat").patch_nvim_treesitter()
         end,
         config = function()
             require("nvim-treesitter.configs").setup({
@@ -40,9 +39,7 @@ return {
 
     {
         "nvim-treesitter/nvim-treesitter-context",
-        build = function()
-            require("theprimeoptimus.compat").patch_treesitter_context()
-        end,
+        build = function() end,
         config = function()
             require("treesitter-context").setup({
                 enable = true,
