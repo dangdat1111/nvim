@@ -2,35 +2,38 @@ return {
     {
         "nvim-treesitter/nvim-treesitter",
         branch = "main",
-        build = function()
-            vim.cmd(":TSUpdate")
-        end,
+        lazy = false,
+        build = ":TSUpdate",
         config = function()
-            require("nvim-treesitter.configs").setup({
-                ensure_installed = {
-                    "c", "lua", "vim", "vimdoc", "query",
-                    "markdown", "markdown_inline",
-                    "go", "gomod", "gosum", "gowork",
-                    "typescript", "javascript", "tsx",
-                    "rust",
-                    "zig",
-                    "python",
-                    "sql",
-                    "bash",
-                    "json", "yaml", "toml",
-                    "css",
-                    "templ",
-                },
-                sync_install = false,
-                auto_install = true,
-                highlight = {
-                    enable = true,
-                    disable = { "html" },
-                    additional_vim_regex_highlighting = false,
-                },
-                indent = {
-                    enable = true,
-                },
+            require("nvim-treesitter").setup({
+                install_dir = vim.fn.stdpath("data") .. "/site",
+            })
+
+            require("nvim-treesitter").install({
+                "c", "lua", "vim", "vimdoc", "query",
+                "markdown", "markdown_inline",
+                "go", "gomod", "gosum", "gowork",
+                "typescript", "javascript", "tsx",
+                "rust",
+                "zig",
+                "python",
+                "sql",
+                "bash",
+                "json", "yaml", "toml",
+                "css",
+                "templ",
+            })
+
+            vim.api.nvim_create_autocmd("FileType", {
+                pattern = { "lua", "go", "gomod", "gosum", "gowork",
+                    "typescript", "javascript", "tsx", "jsx",
+                    "rust", "zig", "python", "sql", "bash",
+                    "json", "yaml", "toml", "css", "templ",
+                    "c", "vim", "vimdoc", "query",
+                    "markdown", "markdown_inline" },
+                callback = function(args)
+                    vim.treesitter.start(args.buf)
+                end,
             })
 
             vim.treesitter.language.register("templ", "templ")
@@ -39,7 +42,6 @@ return {
 
     {
         "nvim-treesitter/nvim-treesitter-context",
-        build = function() end,
         config = function()
             require("treesitter-context").setup({
                 enable = true,
