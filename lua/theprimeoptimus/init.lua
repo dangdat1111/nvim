@@ -1,6 +1,8 @@
 require("theprimeoptimus.keymaps")
 require('theprimeoptimus.set')
 require("theprimeoptimus.lazy_init")
+-- Toast 1 dong phia tren statusline hien message/log gan nhat
+require('theprimeoptimus.message_toast').setup()
 vim.opt.termguicolors = true
 vim.opt.clipboard = "unnamedplus"
 local augroup = vim.api.nvim_create_augroup

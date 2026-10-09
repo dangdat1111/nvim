@@ -36,5 +36,12 @@ vim.opt.updatetime = 50
 
 -- vim.opt.colorcolumn = "80"
 
+-- An hang dong lenh khong o day. `cmdheight = 0` (nvim >= 0.9) lam dong nay
+-- chi hien ra khi that su can go lenh `:` hoac co thong bao, het thi bien mat.
+-- Nhu vay khong con hinh "1 dong trong" lo lung giua noi dung va thanh trang
+-- thai tmux. Message/log gan nhat duoc dua len MOT DONG ngay PHIA TREN dong
+-- statusline (toast goc phai), xem lua/theprimeoptimus/message_toast.lua.
+vim.o.cmdheight = 0
+
 
 

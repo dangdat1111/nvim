@@ -29,5 +29,9 @@ return {
         mode_hl('Replace', moon.foam)
         mode_hl('Command', moon.iris)
         mode_hl('Other', moon.subtle)
+
+        -- Ghi chu: message/log gan nhat KHONG nam trong statusline nua. Ve sau
+        -- khi user chot "muon o tren dong statusline" -> chuyen qua toast mot
+        -- dong phia tren statusline, xem lua/theprimeoptimus/message_toast.lua.
     end,
 }
