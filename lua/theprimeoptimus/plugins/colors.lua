@@ -1,5 +1,5 @@
 function ColorMyPencils(color)
-	color = color or "rose-pine-moon"
+	color = color or "solarized-osaka"
 	vim.cmd.colorscheme(color)
 
 	vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
@@ -85,6 +85,20 @@ return {
 
             ColorMyPencils();
         end
+    },
+
+    {
+        "craftzdog/solarized-osaka.nvim",
+        lazy = false,
+        priority = 1000,
+        opts = {
+            transparent = true,
+            terminal_colors = true,
+        },
+        config = function(_, opts)
+            require("solarized-osaka").setup(opts)
+            ColorMyPencils("solarized-osaka")
+        end,
     },
 
 
