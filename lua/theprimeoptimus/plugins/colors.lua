@@ -1,10 +1,5 @@
-function ColorMyPencils(color)
-	color = color or "solarized-osaka"
-	vim.cmd.colorscheme(color)
-
-	vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-	vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
-end
+-- Theme Mac dinh cua IntelliJ IDEA ban DARK (New UI 2023+) la mac dinh.
+-- Cac theme khac van duoc cai de switch duoc bang :colorscheme <ten>.
 
 return {
 
@@ -15,11 +10,23 @@ return {
     {
         "folke/tokyonight.nvim",
         lazy = false,
-        opts = {},
         config = function()
-            ColorMyPencils()
-        end
+            require("tokyonight").setup({
+                style = "storm", -- The theme comes in three styles, `storm`, `moon`, a darker variant `night` and `day`
+                terminal_colors = true, -- Configure the colors used when opening a `:terminal` in Neovim
+                styles = {
+                    -- Style to be applied to different syntax groups
+                    -- Value is any valid attr-list value for `:help nvim_set_hl`
+                    comments = { italic = false },
+                    keywords = { italic = false },
+                    -- Background styles. Can be "dark", "transparent" or "normal"
+                    sidebars = "dark", -- style for sidebars, see below
+                    floats = "dark", -- style for floating windows
+                },
+            })
+        end,
     },
+
     {
         "ellisonleao/gruvbox.nvim",
         name = "gruvbox",
@@ -50,27 +57,6 @@ return {
             })
         end,
     },
-    {
-        "folke/tokyonight.nvim",
-        config = function()
-            require("tokyonight").setup({
-                -- your configuration comes here
-                -- or leave it empty to use the default settings
-                style = "storm", -- The theme comes in three styles, `storm`, `moon`, a darker variant `night` and `day`
-
-                terminal_colors = true, -- Configure the colors used when opening a `:terminal` in Neovim
-                styles = {
-                    -- Style to be applied to different syntax groups
-                    -- Value is any valid attr-list value for `:help nvim_set_hl`
-                    comments = { italic = false },
-                    keywords = { italic = false },
-                    -- Background styles. Can be "dark", "transparent" or "normal"
-                    sidebars = "dark", -- style for sidebars, see below
-                    floats = "dark", -- style for floating windows
-                },
-            })
-        end
-    },
 
     {
         "rose-pine/neovim",
@@ -82,24 +68,33 @@ return {
                     italic = false,
                 },
             })
-
-            ColorMyPencils();
-        end
-    },
-
-    {
-        "craftzdog/solarized-osaka.nvim",
-        lazy = false,
-        priority = 1000,
-        opts = {
-            transparent = true,
-            terminal_colors = true,
-        },
-        config = function(_, opts)
-            require("solarized-osaka").setup(opts)
-            ColorMyPencils("solarized-osaka")
         end,
     },
 
+    {
+        -- IntelliJ Dark moi (New UI 2023+) cua JetBrains
+        "vermdeep/darcula_dark.nvim",
+        lazy = false,
+        priority = 1002,
+        dependencies = { "rktjmp/lush.nvim" },
+        config = function()
+            vim.cmd("set termguicolors")
+            vim.cmd.colorscheme("darcula_dark")
+
+            -- Nen trong suot: de nvim lay dung mau nen cua terminal (Ghostty:
+            -- background #000000, opacity 0.85) thay vi nen dac #1d1e20 cua theme.
+            -- Giu nguyen fg (mau chu) cua theme, chi bo nen.
+            local function transparent(name)
+                local hl = vim.api.nvim_get_hl(0, { name = name })
+                hl.bg = "none"
+                vim.api.nvim_set_hl(0, name, hl)
+            end
+            transparent("Normal")
+            transparent("NormalFloat")
+            transparent("NormalNC")
+            -- Vung sau EOF cung trong suot (fg cua EndOfBuffer la mau do nen vung rong)
+            vim.api.nvim_set_hl(0, "EndOfBuffer", { fg = "none", bg = "none" })
+        end,
+    },
 
 }
