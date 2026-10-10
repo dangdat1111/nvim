@@ -4,6 +4,22 @@ return {
     config = function()
         require('mini.statusline').setup({})
 
+        -- mini.statusline dat statusline GLOBAL qua mot bieu thuc `%{}`:
+        --   nvim_get_current_win()==#g:actual_curwin || &laststatus==3
+        -- Neu `g:actual_curwin` KHONG duoc dinh nghia, moi lan statusline duoc
+        -- ve lai (xay ra moi lan di chuyen con tro vi co `%l/%c` trong noi dung)
+        -- bieu thuc loi "E121: Undefined variable: g:actual_curwin" -> statusline
+        -- bi nhay/nhap nhay. Theo doi cua so hien tai de bieu thuc luon hop le.
+        vim.g.actual_curwin = vim.api.nvim_get_current_win()
+        local curwin_grp = vim.api.nvim_create_augroup('MiniStatuslineCurwin', { clear = true })
+        vim.api.nvim_create_autocmd({ 'BufEnter', 'WinEnter' }, {
+            group = curwin_grp,
+            pattern = '*',
+            callback = function()
+                vim.g.actual_curwin = vim.api.nvim_get_current_win()
+            end,
+        })
+
         -- Mau mode theo bang mau rose-pine moon (moi mode mot mau rieng)
         local moon = {
             base = '#232136', -- text tren nen mau

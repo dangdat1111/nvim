@@ -202,9 +202,13 @@ local function setup()
   install_notify_hook()
 
   local grp = vim.api.nvim_create_augroup('NvimMessageToast', { clear = true })
+  -- KHONG lang nghe CursorMoved/CursorMovedI: chay `:messages` moi lan di chuyen
+  -- con tro la viec thua + co the lam nhay vung cuoi man hinh (cmdheight = 0).
+  -- Toast van duoc cap nhat qua vim.notify (install_notify_hook) va cac su kien
+  -- khac (CmdlineLeave/InsertLeave/ModeChanged/WinEnter/BufEnter/VimResized).
   vim.api.nvim_create_autocmd(
     { 'CmdlineLeave', 'CmdlineEnter', 'ModeChanged', 'InsertLeave',
-      'CursorMoved', 'CursorMovedI', 'WinEnter', 'BufEnter', 'VimResized' },
+      'WinEnter', 'BufEnter', 'VimResized' },
     { group = grp, callback = refresh_msgs }
   )
   vim.api.nvim_create_autocmd('VimLeavePre', { group = grp, callback = hide })
